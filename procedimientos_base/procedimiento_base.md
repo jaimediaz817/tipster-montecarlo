@@ -88,3 +88,18 @@ git remote remove origin  => elimina el repo remoto
 git config --local credential.helper ""
 git config --global user.email "jdsolutions817@gmail.com"
 git config --global user.name "jaimediaz817"
+
+
+
+ssh-keygen -t ed25519 -C "jdsolutions817@gmail.com"
+# cuando pida la ubicación: (NOTA: Crear previamente la carpeta)
+C:\Users\user\.ssh\proyectos_jdiaz
+
+# Agregar la calve SSH al ssh-agent
+ssh-add ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz
+
+# ver la clave pública:
+clip < ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz.pub
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP90N4uM+38WZvXxR5p6yLFsExgvt+phLY2phY+9Hds jdsolutions817@gmail.com
+

@@ -80,3 +80,11 @@ git remote set-url origin https://github.com/jaimediaz817/tipster-montecarlo.git
 git remote add origin https://github.com/jaimediaz817/tipster-montecarlo.git
 git config --global user.name "jaimediaz817"
 git config credential.helper store
+git remote remove origin  => elimina el repo remoto
+
+
+
+
+git config --local credential.helper ""
+git config --global user.email "jdsolutions817@gmail.com"
+git config --global user.name "jaimediaz817"

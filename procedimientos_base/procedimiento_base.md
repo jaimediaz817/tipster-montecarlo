@@ -101,5 +101,9 @@ ssh-add ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz
 # ver la clave pública:
 clip < ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz.pub
 
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAP90N4uM+38WZvXxR5p6yLFsExgvt+phLY2phY+9Hds jdsolutions817@gmail.com
+# NUEVO TOKEN
+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
+
+# NUEVO COMANDO PARA CONECTAR REMOTAMENTE CON EL REPOSITORIO (CUALQUIER REPOSITORIO)
+git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
 

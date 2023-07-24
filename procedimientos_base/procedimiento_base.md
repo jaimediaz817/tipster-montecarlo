@@ -109,3 +109,53 @@ git remote set-url origin https://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@githu
 
 # GIT RESET HARD (DESHACER TODOS LOS CAMBIOS AL COMMIT SELECCIONADO)
 git reset --hard [SHA]
+
+
+# CONEXION A LA BASE DE DATOS MYSQL A TRAVES DE TYPEORM
+
+1-Instalar dependencias[COMANDO] 
+npm install --save @nestjs/typeorm typeorm mysql2
+
+2-Importar modulo en app.module 
+import { TypeOrmModule } from '@nestjs/typeorm'
+
+3-Setear configuracion de base de datos 
+@Module
+({ 
+    imports: [ 
+        TypeOrmModule.forRoot({
+        type: 'mysql',
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        username: process.env.DB_USER,
+        password: '',
+        database: process.env.DB_NAME,
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true,
+    }),
+    ]
+})
+
+# INSTALACION DE MODULO PARA CONFIGURAR LAS VARIABLES DE ENTORNO (ARCHIVO .ENV)
+
+1- Instalar dependencia
+npm i --save @nestjs/config
+
+2- Importar modulo en app.module
+import { ConfigModule } from '@nestjs/config';
+
+@Module({
+  imports: [ConfigModule.forRoot()],
+})
+export class AppModule {}
+
+
+# VALIDACION MEDIANTE PIPES EN ENTIDADES
+
+1-Instalar dependencias
+npm i --save class-validator class-transformer
+
+2-Agregar en main.ts
+import { ValidationPipe } from '@nestjs/common';
+
+app.useGlobalPipes(new ValidationPipe());

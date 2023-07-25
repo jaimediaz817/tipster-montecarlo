@@ -41,7 +41,7 @@ export class User {
   * Relacion 1:1 con persona
   */
   @OneToOne(() => Person, (person) => person.user, {
-    cascade: true
+    cascade: ['update']
   })
   @JoinColumn({ name: 'person_id'})
   profile: Person;

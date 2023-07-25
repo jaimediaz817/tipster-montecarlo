@@ -1,6 +1,12 @@
 import { 
-  Controller, Post, Body, 
-  Get, Param, ParseIntPipe, Delete
+  Controller,  
+  Body,   
+  Param,
+  ParseIntPipe,
+  Get,
+  Post,
+  Put,
+  Delete,
 } from '@nestjs/common';
 
 // DTOS
@@ -10,6 +16,7 @@ import { LoginUserDto } from '../dtos/login-user.dto';
 import { UserService } from '../services/user.service';
 
 import { User } from '../entities/user.entity';
+import { UpdaterUserDto } from '../dtos/update-user.dto';
 
 @Controller('auth')
 export class UserController {
@@ -17,7 +24,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   // http://localhost:3000/api/auth/security/user/all
-  @Get('security/user/all')
+  @Get('security/users/all')
   getUsers(): Promise<User[]> {
     return this.userService.getUsers();
   }
@@ -26,6 +33,15 @@ export class UserController {
   @Post('security/user/register')
   register(@Body() newUser: RegisterUserDto) {
     return this.userService.register(newUser);
+  }
+
+  // http://localhost:3000/api/auth/security/user/register
+  @Put('security/user/update/:id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUser: UpdaterUserDto
+  ) {
+    return this.userService.update(id, updateUser);
   }
 
   // OBTENER USUARIO MEDIANTE EL ID

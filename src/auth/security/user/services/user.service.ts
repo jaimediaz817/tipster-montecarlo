@@ -15,13 +15,16 @@ import {
 // Encriptacion
 import * as bcrypt from 'bcrypt';
 import { Person } from '../entities/person.entity';
+import { UpdaterUserDto } from '../dtos/update-user.dto';
 
 
 @Injectable()
 export class UserService {
 
-  constructor(@InjectRepository(User)      
-    private userRepository: Repository<User>) {}
+  constructor(
+    @InjectRepository(User)      
+    private userRepository: Repository<User>,
+  ) {}
 
   /**
    * Listar usuarios con su perfil asociado
@@ -81,6 +84,8 @@ export class UserService {
       newProfile.full_name = user.full_name;
       newProfile.last_name = user.last_name;
 
+      
+
       // Crea nueva instancia de User y le asigna el perfil
       const newUser = this.userRepository
         .create({
@@ -93,6 +98,54 @@ export class UserService {
         await this.userRepository.save(newUser);
   
         return newUser;
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
+  /**
+   * Actualización de usuarios
+   * -----------------------
+   * url: http://localhost:3000/api/auth/security/user/update/:id
+   */
+  async update(id: number, updateUser: UpdaterUserDto) {
+
+    try {
+
+      const userFound = await this.userRepository.findOne({
+        where: {
+          id
+        },
+        relations: {
+          profile: true
+        }
+      });
+  
+      if (!userFound) {
+        return new HttpException(
+          'User not exists', HttpStatus.CONFLICT
+        );
+      }
+
+      // Actualiza la info. del User y el perfil asociado (Person)
+      const updateUserResult = await this.userRepository
+        .createQueryBuilder()
+        .update(User)
+        .set({
+          ...userFound,...updateUser
+        })
+        .where('id = :id', { id })
+        .execute();
+
+        // TODO: esta parte hay que analizarla porque le tengo que pasar este objeto
+        await this.userRepository.save(updateUser);
+  
+        return {
+          userFound,
+          updateUser,
+          result: updateUserResult
+        };
     } catch (error) {
       console.log(error);
     }

@@ -6,6 +6,7 @@ import {
   MinLength,
   IsAlphanumeric,
 } from 'class-validator';
+import { Unique } from 'typeorm';
 
 export class RegisterUserDto {
   @IsString()
@@ -25,7 +26,9 @@ export class RegisterUserDto {
   @MinLength(8)
   password: string;
 
+  // NOTE: Implementar validación explícita para enviar mensaje de error cuando el EMAIL NO sea único
   @IsEmail()
   @IsNotEmpty()
+  // @Unique()
   email: string;
 }

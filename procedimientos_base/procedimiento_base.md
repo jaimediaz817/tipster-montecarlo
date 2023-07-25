@@ -105,7 +105,10 @@ clip < ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz.pub
 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
 
 # NUEVO COMANDO PARA CONECTAR REMOTAMENTE CON EL REPOSITORIO (CUALQUIER REPOSITORIO)
-git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
+
+TOKEN NUEVO: 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
+
+git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
 
 # GIT RESET HARD (DESHACER TODOS LOS CAMBIOS AL COMMIT SELECCIONADO)
 git reset --hard [SHA]

@@ -8,46 +8,45 @@ nest generate -help
 AUTH (mod)
 
     SECURITY (mod)
+        ........................
         USER
-            controllers
-                -UserController
-            services
-                -UserService
-            dtos
-            entities
+            - CONTROLLER
+                UserController
+            - SERVICIO
+                UserService
+            - ENTITY
+                User
+                Person
+            - DTO
+            - ETC..
+
+        ........................
+        PERMISSIONROLE
+            ROLE
+                - CONTROLLER
+                - SERVICIO
+                - ENTITY
+                - DTO
+                - ETC..
+
+            PERMISSION
+                - CONTROLLER
+                - SERVICIO
+                - ENTITY
+                - DTO
+                - ETC..
+
+        ........................
+        SUSCRIPTION
+
+            AFILIADO
+
+            RENOVACION
+
+            DISCO
 
 
-        - CONTROLLER
-        - SERVICIO
-        - ENTITY
-        - DTO
-        - ETC..
-
-        ROLE
-        - CONTROLLER
-        - SERVICIO
-        - ENTITY
-        - DTO
-        - ETC..
-
-
-        PERMISSION
-        - CONTROLLER
-        - SERVICIO
-        - ENTITY
-        - DTO
-        - ETC..
-
-    SUSCRIPTION
-
-        AFILIADO
-
-        RENOVACION
-
-        DISK
-
-
-    PAYMENTS
+        PAYMENTS
         
 
 BUSINESS

@@ -3,7 +3,8 @@ import {
   Column, 
   PrimaryGeneratedColumn,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  Unique
 } from "typeorm";
 
 import { Person } from "./person.entity";
@@ -14,6 +15,7 @@ import { Person } from "./person.entity";
 
 // Propiedad name: nombre de la tabla
 @Entity({name: 'users'})
+@Unique(['email'])
 export class User {
 
   @PrimaryGeneratedColumn()

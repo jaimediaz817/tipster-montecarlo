@@ -1,8 +1,11 @@
 // MODULOS
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './auth/security/user/user.module';
+import { LoggerModule } from 'nestjs-pino';
+import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './correlation-id/correlation-id.middleware';
+import { Request } from 'express';
 
 @Module({
   imports: [
@@ -22,10 +25,45 @@ import { UserModule } from './auth/security/user/user.module';
       synchronize: true,
     }),
     
+      /**
+       * NOTE: LOGGER - PINO
+      */
+      LoggerModule.forRoot({
+
+        pinoHttp: {
+          transport: process.env.PROJECT_ENVIROMENT === 'development' ? {
+            target: 'pino/file', // pino-pretty
+            options: {
+              messageKey: 'message',
+              // destination: `${__dirname}/auth/security/user/logs/user-module.log`,   
+            },
+          } : undefined,
+          messageKey: 'message',
+          customProps: (req: Request) => {
+            return {
+              correlationId: req[CORRELATION_ID_HEADER],
+            }
+          },          
+          autoLogging: false,
+          serializers: {
+            req: () => {
+              return undefined
+            },
+            res: () => {
+              return undefined
+            }            
+          },
+        }
+      }),
+
     UserModule
   ],
   controllers: [],
   providers: [],
 })
 
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CorrelationIdMiddleware).forRoutes("*");
+  }
+}

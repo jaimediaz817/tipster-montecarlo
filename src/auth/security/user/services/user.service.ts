@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { 
+  Injectable,
+  Logger,
+  ConflictException,
+  InternalServerErrorException
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
@@ -20,6 +25,8 @@ import { UpdaterUserDto } from '../dtos/update-user.dto';
 
 @Injectable()
 export class UserService {
+
+  private readonly logger = new Logger(UserService.name)
 
   constructor(
     @InjectRepository(User)      
@@ -96,10 +103,19 @@ export class UserService {
         });
   
         await this.userRepository.save(newUser);
+
+        this.logger.log('register:User - user be add')
   
         return newUser;
+
     } catch (error) {
-      console.log(error);
+      console.log("error >>>>> ", error);
+
+      if (error.code && (error.code == "ER_DUP_ENTRY" || parseInt(error.errno) == 1062)) {
+        throw new ConflictException('Email already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
     }
     
   }
@@ -147,7 +163,7 @@ export class UserService {
           result: updateUserResult
         };
     } catch (error) {
-      console.log(error);
+      console.log("error >>>>> ", error);
     }
     
   }

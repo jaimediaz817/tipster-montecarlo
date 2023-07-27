@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Delete,
+  Logger,
 } from '@nestjs/common';
 
 // DTOS
@@ -21,11 +22,15 @@ import { UpdaterUserDto } from '../dtos/update-user.dto';
 @Controller('auth')
 export class UserController {
   
+  // definiendo propiedad privada para gestión del logger 
+  private readonly logger = new Logger(UserController.name);
+
   constructor(private userService: UserService) {}
 
   // http://localhost:3000/api/auth/security/user/all
   @Get('security/users/all')
   getUsers(): Promise<User[]> {
+    this.logger.log("get all users - test logger");
     return this.userService.getUsers();
   }
 

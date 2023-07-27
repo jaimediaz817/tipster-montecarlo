@@ -103,11 +103,11 @@ clip < ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz.pub
 # NUEVO TOKEN
 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
 
-# NUEVO COMANDO PARA CONECTAR REMOTAMENTE CON EL REPOSITORIO (CUALQUIER REPOSITORIO)
+# NUEVO COMANDO PARA CONECTAR REMOTAMENTE CON EL REPOSITORIO (CUALQUIER REPOSITORIO) 24-06-2023
 
-TOKEN NUEVO: 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
+TOKEN NUEVO: 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
 
-git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
+git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
 
 # GIT RESET HARD (DESHACER TODOS LOS CAMBIOS AL COMMIT SELECCIONADO)
 git reset --hard [SHA]

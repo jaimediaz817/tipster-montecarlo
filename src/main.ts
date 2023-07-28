@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 
 import { ValidationPipe } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +14,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api'); //Agrega el prefijo /api/
   app.enableCors(); // Habilitar CORS
-  await app.listen(3000);
+
+  // INFO: preparando el mecanismo con cargue dinámico de variables de entorno
+  const configService = app.get(ConfigService);
+  console.log("ConfigService: ", configService.get('APP_PORT'));
+  
+  await app.listen(configService.get('APP_PORT'));
 }
 bootstrap();

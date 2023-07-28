@@ -4,7 +4,7 @@
 ---------------------------------------------------
 - Al ejecutar NEST en el puerto 3000 con:
 npm run start:dev  
-- reporto BUG con bcrypt por tema de node_modules
+- se reporto BUG con bcrypt por tema de node_modules
 
 ## SOLUCIÓN: B-01
 rm -rf node_modules

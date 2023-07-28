@@ -105,9 +105,13 @@ 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
 
 # NUEVO COMANDO PARA CONECTAR REMOTAMENTE CON EL REPOSITORIO (CUALQUIER REPOSITORIO) 24-06-2023
 
-TOKEN NUEVO: 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
+TOKEN NUEVO: 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
 
-git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
+git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
+
+
+git remote set-url origin git@github.com:jaimediaz817/tipster-montecarlo.git
+
 
 # GIT RESET HARD (DESHACER TODOS LOS CAMBIOS AL COMMIT SELECCIONADO)
 git reset --hard [SHA]

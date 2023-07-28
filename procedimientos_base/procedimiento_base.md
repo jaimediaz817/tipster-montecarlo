@@ -102,14 +102,14 @@ clip < ~/.ssh/proyectos_jdiaz/id_ssh_jdiaz.pub
 
 # NUEVO TOKEN
 - fecha de creación:  
-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
+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
 
 # NUEVO COMANDO PARA CONECTAR REMOTAMENTE CON EL REPOSITORIO (CUALQUIER REPOSITORIO) 24-06-2023
 
-TOKEN NUEVO: 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
+TOKEN NUEVO: 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
 
 - ejecutar el siguiente comando para actualizar enlace al repositorio remoto
-git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
+git remote set-url origin https://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@github.com/jaimediaz817/tipster-montecarlo.git
 
 
 # GIT RESET HARD (DESHACER TODOS LOS CAMBIOS AL COMMIT SELECCIONADO)

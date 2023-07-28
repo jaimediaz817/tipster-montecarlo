@@ -7,8 +7,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './correlation-id/correlation-id.middleware';
 import { Request } from 'express';
 import { DataSourceConfig } from './config/data.source';
-
-const configService = new ConfigService()
+import { LoggerPinoConfig } from './config/logger.pino';
 
 @Module({
 
@@ -23,46 +22,48 @@ const configService = new ConfigService()
     */
     // TypeOrmModule.forRoot({
     //   type: 'mysql',
-    //   host: process.env.DB_HOST,
-    //   port: Number(process.env.DB_PORT),
-    //   username: process.env.DB_USER,
+    //   host: '127.0.0.1',
+    //   port: 3306,
+    //   username: 'root',
     //   password: '',
-    //   database: process.env.DB_NAME,
+    //   database: 'montecarlodb',
     //   entities: [__dirname + '/**/*.entity{.ts,.js}'],
     //   synchronize: true,
     // }),
-    TypeOrmModule.forRoot({
-      ...DataSourceConfig
-    }),
+
+    TypeOrmModule.forRoot(
+      DataSourceConfig
+    ),
 
     /**
      * NOTE: LOGGER - PINO
     */
     LoggerModule.forRoot({
-      pinoHttp: {
-        transport: process.env.PROJECT_ENVIROMENT === 'develop' ? {
-          target: 'pino/file', // pino-pretty
-          options: {
-            messageKey: 'message',
-            // destination: `${__dirname}/auth/security/user/logs/user-module.log`,   
-          },
-        } : undefined,
-        messageKey: 'message',
-        customProps: (req: Request) => {
-          return {
-            correlationId: req[CORRELATION_ID_HEADER],
-          }
-        },          
-        autoLogging: false,
-        serializers: {
-          req: () => {
-            return undefined
-          },
-          res: () => {
-            return undefined
-          }            
-        },
-      }
+      pinoHttp: LoggerPinoConfig
+      // pinoHttp: {
+      //   transport: process.env.PROJECT_ENVIROMENT === 'develop' ? {
+      //     target: 'pino/file', // pino-pretty
+      //     options: {
+      //       messageKey: 'message',
+      //       // destination: `${__dirname}/auth/security/user/logs/user-module.log`,   
+      //     },
+      //   } : undefined,
+      //   messageKey: 'message',
+      //   customProps: (req: Request) => {
+      //     return {
+      //       correlationId: req[CORRELATION_ID_HEADER],
+      //     }
+      //   },          
+      //   autoLogging: false,
+      //   serializers: {
+      //     req: () => {
+      //       return undefined
+      //     },
+      //     res: () => {
+      //       return undefined
+      //     }            
+      //   },
+      // }
     }),
 
     UserModule
